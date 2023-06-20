@@ -12,10 +12,10 @@ def verify_signature(pubkey_file, signature_file):
 
     public_key = import_result.fingerprints[0]
 
-    with open(signature_file, 'rb') as f:
+    with open(signature_file, 'r') as f:
         signature_data = f.read()
 
-    verified = gpg.verify_data(signature_data)
+    verified = gpg.verify(signature_data)
 
     if verified.fingerprint == public_key and verified.valid:
         print("\n[+] Signature is valid\n")
@@ -24,7 +24,7 @@ def verify_signature(pubkey_file, signature_file):
 
 def main():
     parser = argparse.ArgumentParser(description="PGP signature verifier")
-    parser.add_argument("-b", "--pubkey-file", type=str, required=True, help="Public key file")
+    parser.add_argument("-p", "--pubkey-file", type=str, required=True, help="Public key file")
     parser.add_argument("-s", "--signature-file", type=str, required=True, help="File containing the signature")
     args = parser.parse_args()
 
