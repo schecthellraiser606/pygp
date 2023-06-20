@@ -14,11 +14,14 @@ def generate_keypair(name, email, passphrase):
     return key
 
 def save_keys(public_key_file, private_key_file, key):
+    public_key = key.pubkey
+    private_key = key.seckey
+
     with open(public_key_file, "w") as f:
-        f.write(str(key))
+        f.write(public_key)
 
     with open(private_key_file, "w") as f:
-        f.write(str(key))
+        f.write(private_key)
 
 def main():
     parser = argparse.ArgumentParser(description="PGP key pair generator")
