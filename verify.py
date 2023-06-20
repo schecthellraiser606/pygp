@@ -6,7 +6,7 @@ def verify_signature(signature_file, public_key_file):
     with open(signature_file, "rb") as f:
         signature_data = f.read()
 
-    verified_data = gpg.verify_data(signature_data, data=None)
+    verified_data = gpg.verify_data(signature_data)
 
     with open(public_key_file, "r") as f:
         public_key = f.read()
