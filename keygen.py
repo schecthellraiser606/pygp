@@ -1,6 +1,5 @@
 import argparse
 import gnupg
-import os
 
 def generate_keypair(name, email, passphrase):
     gpg = gnupg.GPG()
@@ -34,11 +33,6 @@ def main():
     args = parser.parse_args()
 
     key = generate_keypair(args.name, args.email, args.passphrase)
-
-    # ディレクトリが存在しない場合は作成する
-    os.makedirs(os.path.dirname(args.public_key_file), exist_ok=True)
-    os.makedirs(os.path.dirname(args.private_key_file), exist_ok=True)
-
     save_keys(args.public_key_file, args.private_key_file, key)
 
     print("Key pair generated successfully!")
