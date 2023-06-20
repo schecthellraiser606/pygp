@@ -22,7 +22,7 @@ def main():
 
     signed_data = sign_message(message, private_key_file, passphrase)
 
-    if signed_data.ok:
+    if signed_data.status == "signature created":
         print("Message signed successfully!")
         print("Signed message:")
         print(signed_data.data.decode('utf-8'))
