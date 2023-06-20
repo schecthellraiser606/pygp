@@ -24,7 +24,7 @@ def verify_signature(pubkey_file, signature_file):
 
 def main():
     parser = argparse.ArgumentParser(description="PGP signature verifier")
-    parser.add_argument("-p", "--pubkey-file", type=str, required=True, help="Public key file")
+    parser.add_argument("-b", "--pubkey-file", type=str, required=True, help="Public key file")
     parser.add_argument("-s", "--signature-file", type=str, required=True, help="File containing the signature")
     args = parser.parse_args()
 
