@@ -6,7 +6,7 @@ def sign_message(message, private_key_file, passphrase):
     with open(private_key_file, "r") as f:
         private_key = f.read()
 
-    signed_data = gpg.sign(message, keyid=None, passphrase=passphrase, default_key=private_key)
+    signed_data = gpg.sign(message, keyid=private_key, passphrase=passphrase)
     return signed_data
 
 def main():
