@@ -3,15 +3,15 @@ import gnupg
 
 def verify_signature(signature_file, public_key_file):
     gpg = gnupg.GPG()
+    with open(public_key_file, "r") as f:
+        public_key_data = f.read()
+
     with open(signature_file, "rb") as f:
         signature_data = f.read()
 
-    verified_data = gpg.verify_data(signature_data)
+    verified_data = gpg.verify(signature_data, key_data=public_key_data)
 
-    with open(public_key_file, "r") as f:
-        public_key = f.read()
-
-    if verified_data.fingerprint == public_key and verified_data.valid:
+    if verified_data.valid:
         return True
     else:
         return False
