@@ -9,7 +9,7 @@ def verify_signature(signature_file, public_key_file):
     with open(signature_file, "rb") as f:
         signature_data = f.read()
 
-    verified_data = gpg.verify(signature_data, key_data=public_key_data)
+    verified_data = gpg.verify_data(signature_data, public_key_data)
 
     if verified_data.valid:
         return True
