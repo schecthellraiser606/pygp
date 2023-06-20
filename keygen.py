@@ -1,8 +1,7 @@
 import argparse
 import gnupg
 
-def generate_keypair(name, email, passphrase):
-    gpg = gnupg.GPG()
+def generate_keypair(gpg, name, email, passphrase):
     input_data = gpg.gen_key_input(
         key_type="RSA",
         key_length=2048,
@@ -13,9 +12,9 @@ def generate_keypair(name, email, passphrase):
     key = gpg.gen_key(input_data)
     return key
 
-def save_keys(public_key_file, private_key_file, key):
-    public_key = key.pubkey
-    private_key = key.seckey
+def save_keys(gpg, public_key_file, private_key_file, key):
+    public_key = gpg.export_keys(key.fingerprint)
+    private_key = gpg.export_keys(key.fingerprint, secret=True)
 
     with open(public_key_file, "w") as f:
         f.write(public_key)
@@ -32,8 +31,9 @@ def main():
     parser.add_argument("--private-key-file", default="private_key.asc", help="Output file for the private key")
     args = parser.parse_args()
 
-    key = generate_keypair(args.name, args.email, args.passphrase)
-    save_keys(args.public_key_file, args.private_key_file, key)
+    gpg = gnupg.GPG()
+    key = generate_keypair(gpg, args.name, args.email, args.passphrase)
+    save_keys(gpg, args.public_key_file, args.private_key_file, key)
 
     print("Key pair generated successfully!")
     print(f"Public key saved to: {args.public_key_file}")
