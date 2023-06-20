@@ -20,7 +20,7 @@ def main():
     parser = argparse.ArgumentParser(description="PGP data decoder")
     parser.add_argument("-e", "--encrypted-data-file", type=str, required=True, help="File containing the encrypted data")
     parser.add_argument("-r", "--private-key-file", type=str, required=True, help="Private key file")
-    parser.add_argument("-p", "--passphrase", type=str, required=True, help="Passphrase for the private key")
+    parser.add_argument("-p", "--passphrase", type=str, required=True, help="Passphrase for the private key", default="$M1DGu4rD$")
     args = parser.parse_args()
 
     encrypted_data_file = args.encrypted_data_file
