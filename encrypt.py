@@ -4,7 +4,10 @@ import gnupg
 def encode_data(data, public_key_file):
     gpg = gnupg.GPG()
     with open(public_key_file, "r") as f:
-        public_key = f.read()
+        key_data = f.read()
+        import_result = gpg.import_keys(key_data)
+    
+    public_key = import_result.fingerprints[0]
 
     encrypted_data = gpg.encrypt(data, recipients=None, armor=True, always_trust=True, key_data=public_key)
     return encrypted_data

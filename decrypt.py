@@ -4,7 +4,10 @@ import gnupg
 def decode_data(encrypted_data_file, private_key_file, passphrase):
     gpg = gnupg.GPG()
     with open(private_key_file, "r") as f:
-        private_key = f.read()
+        key_data = f.read()
+        import_result = gpg.import_keys(key_data)
+    
+    private_key = import_result.results[0]['fingerprint']
 
     with open(encrypted_data_file, "rb") as f:
         encrypted_data = f.read()
