@@ -12,7 +12,7 @@ def decode_data(encrypted_data_file, private_key_file, passphrase):
     with open(encrypted_data_file, "rb") as f:
         encrypted_data = f.read()
 
-    decrypted_data = gpg.decrypt(encrypted_data, passphrase=passphrase, key_data=private_key)
+    decrypted_data = gpg.decrypt(encrypted_data, passphrase=passphrase, always_trust=True)
     return decrypted_data
 
 
@@ -20,7 +20,7 @@ def main():
     parser = argparse.ArgumentParser(description="PGP data decoder")
     parser.add_argument("-e", "--encrypted-data-file", type=str, required=True, help="File containing the encrypted data")
     parser.add_argument("-r", "--private-key-file", type=str, required=True, help="Private key file")
-    parser.add_argument("-p", "--passphrase", type=str, required=True, help="Passphrase for the private key", default="$M1DGu4rD$")
+    parser.add_argument("-p", "--passphrase", type=str, help="Passphrase for the private key", default="$M1DGu4rD$")
     args = parser.parse_args()
 
     encrypted_data_file = args.encrypted_data_file
