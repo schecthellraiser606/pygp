@@ -8,6 +8,10 @@ def decode_data(encrypted_data_file, private_key_file, passphrase):
         import_result = gpg.import_keys(key_data)
     
     private_key = import_result.results[0]['fingerprint']
+    
+    if private_key is None:
+        print("Failed to import the private key")
+        exit(1)
 
     with open(encrypted_data_file, "rb") as f:
         encrypted_data = f.read()
